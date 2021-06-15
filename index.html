@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Make your list items</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <style>
+        body {
+            background-color: white;
+        }
+
+        #container {
+            border: 15px solid #db5e0f;
+            width: 1050px;
+            height: 200px;
+            padding: 30px 20px;
+            position: relative;
+            margin: auto;
+            margin-top: 50px;
+            background-color: #10d2e0;
+        }
+
+        h2 {
+            color: white;
+            text-align: center;
+            margin: auto;
+            margin-top: 50px;
+            margin-bottom: 10px;
+            font-size: 30px;
+            position: relative;
+        }
+
+        #input {
+            width: 700px;
+            height: 30px;
+            border: 5px solid gainsboro;
+            margin: auto;
+            margin-top: 50px;
+            background-color: hotpink;
+            font-size: 25px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #input:hover {
+            background-color: white;
+            transition: 1s;
+            color: black;
+        }
+
+        #add {
+            width: 100px;
+            height: 50px;
+            border: 5px solid gainsboro;
+            text-align: center;
+            font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            cursor: pointer;
+            color: maroon;
+        }
+
+        #add:hover {
+            background-color: grey;
+            transition: 1s;
+        }
+
+        #background {
+            width: 200px;
+            height: 50px;
+            border: 5px solid gainsboro;
+            text-align: center;
+            font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            cursor: pointer;
+            color: maroon;
+        }
+
+        #background:hover {
+            background-color: grey;
+            transition: 1s;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            display: block;
+            text-decoration: none;
+            margin: auto;
+            margin-top: 0;
+            margin-bottom: 0;
+            text-align: center;
+            border: 1px inset white;
+            width: 1050px;
+            height: 10px;
+            padding: 15px 10px;
+            position: relative;
+            font-size: 20px;
+            cursor: pointer;
+            background-color: dimgrey;
+        }
+
+        li:hover {
+            background-color: grey;
+            transition: 0.5s;
+        }
+
+        li.checked{
+            text-decoration: line-through;
+        }
+
+        .close {
+            color:black;
+            border: 0px solid white;
+            margin:auto;
+            margin-bottom: 0;
+            margin-top: 0;
+            width:15px;
+            height:15px;
+            float:right;
+            cursor: pointer;
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 12px 16px 12px 16px;
+        }
+
+        .close:hover {
+            background-color: red;
+            color: white;
+        }
+        @media screen and (max-width: 1200px) and (min-width: 480px) {
+        body{
+            background: white;
+        }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <h2>My ToDo List</h2>
+        <input id="input" type="text" placeholder="Type Here...">
+        <button id="add" onclick="addElements()"><b>ADD</b></button>
+        <button id="background" onclick="background()"><b>ChangeBGColor</b></button>
+    </div>
+    <ul id="UL">
+        <li>Phone</li>
+        <li>Charger</li>
+        <li class="checked">USB</li>
+        <li>PenDrive</li>
+        <li>HeadPhone</li>
+    </ul>
+    <script>
+        function background() {
+            var x = Math.floor(Math.random() * 256);
+            var y = Math.floor(Math.random() * 256);
+            var z = Math.floor(Math.random() * 256);
+            var bgColor = "rgb(" + x + "," + y + "," + z + ")";
+            console.log(bgColor);
+            document.body.style.background = bgColor;
+        }
+        var myNodelist = document.getElementsByTagName("LI");
+        var i;
+        for (i = 0; i < myNodelist.length; i++) {
+            var span = document.createElement("SPAN");
+            var txt = document.createTextNode("\u00D7");
+            span.className = "close";
+            span.appendChild(txt);
+            myNodelist[i].appendChild(span);
+        }
+
+
+        var close = document.getElementsByClassName("close");
+        var i;
+        for (i = 0; i < close.length; i++) {
+            close[i].onclick = function () {
+                var div = this.parentElement;
+                div.style.display = "none";
+            }
+        }
+
+        var list = document.querySelector('ul');
+        list.addEventListener('click', function(ev) {
+        if (ev.target.tagName === 'LI') {
+            ev.target.classList.toggle('checked');
+        }
+        }, false);
+
+
+        function addElements() {
+            var li = document.createElement("li");
+            var inputValue = document.getElementById("input").value;
+            var t = document.createTextNode(inputValue);
+            li.appendChild(t);
+            if (inputValue === '') {
+                alert("You must write something!");
+            } else {
+                document.getElementById("UL").appendChild(li);
+            }
+            document.getElementById("input").value = "";
+            var span = document.createElement("SPAN");
+            var txt = document.createTextNode("\u00D7");
+            span.className = "close";
+            span.appendChild(txt);
+            li.appendChild(span);
+
+        var close = document.getElementsByClassName("close");
+        var i;
+        for (i = 0; i < close.length; i++) {
+            close[i].onclick = function () {
+                var div = this.parentElement;
+                div.style.display = "none";
+            }
+        }
+        }
+    </script>
+</body>
+
+</html>
